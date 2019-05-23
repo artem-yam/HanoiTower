@@ -5,12 +5,12 @@ import project.state.checker.StateChecker;
 import project.state.generator.StatesGenerator;
 import project.state.searcher.SearchEngine;
 
-public class Cuber {
+public class Solver {
     
     private StateChecker checker;
     private StatesGenerator generator;
     
-    public Cuber(StateChecker checker, StatesGenerator generator) {
+    public Solver(StateChecker checker, StatesGenerator generator) {
         this.checker = checker;
         this.generator = generator;
     }

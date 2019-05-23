@@ -1,7 +1,5 @@
 package project.state.searcher;
 
-import project.action.Action;
-import project.action.DiskMove;
 import project.state.StateModel;
 
 import java.util.HashSet;
@@ -9,24 +7,29 @@ import java.util.HashSet;
 public class SearchInDepth extends AbstractSearch {
     
     protected HashSet<StateModel> visitedStates;
+    private StateModel startState;
     
     @Override
     public boolean search(StateModel currentState, int maxSteps) {
         visitedStates = new HashSet<>();
+        startState = currentState;
         
         searchTree.put(new byte[]{(byte) currentStep}, currentState);
-        visitedStates.add(currentState);
         
         return recursiveSearch(currentState, maxSteps);
     }
     
     private boolean recursiveSearch(StateModel currentState, int maxSteps) {
-        for (Action rotation : DiskMove.values()) {
+        
+        for (StateModel newState : generator.getAllNewPossibleStates(
+            currentState)) {
+            
+            if (currentStep == 0) {
+                visitedStates = new HashSet<>();
+                visitedStates.add(startState);
+            }
             
             if (++currentStep <= maxSteps) {
-                StateModel newState = generator.getNewState(currentState,
-                    rotation);
-                
                 checkStateAndChildren(currentState, newState, maxSteps);
             } else {
                 currentStep--;

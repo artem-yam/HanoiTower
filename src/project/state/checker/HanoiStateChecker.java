@@ -2,14 +2,14 @@ package project.state.checker;
 
 import project.state.StateModel;
 
-public class CubeStateChecker extends StateChecker {
+public class HanoiStateChecker extends StateChecker {
     
-    public CubeStateChecker(StateModel goalState) {
+    public HanoiStateChecker(StateModel goalState) {
         super(goalState);
     }
     
-    public CubeStateChecker(int disksCount) {
-        super(StateModel.getWinState(disksCount));
+    public HanoiStateChecker(int towersCount, int disksCount) {
+        super(StateModel.getWinState(towersCount, disksCount));
     }
     
     @Override

@@ -15,27 +15,26 @@ public class StateModel implements Serializable {
     private List<Tower> towers;
     private Action lastAction = null;
     
-    public StateModel(int disksCount) {
-        createTowers();
-        
+    public StateModel(int towersCount, int disksCount) {
+        createTowers(towersCount);
         fillTower(disksCount, 0);
     }
     
     private StateModel() {
     }
     
-    public static StateModel getWinState(int disksCount) {
+    public static StateModel getWinState(int towersCount, int disksCount) {
         StateModel model = new StateModel();
         
-        model.createTowers();
-        model.fillTower(disksCount, TOWERS_COUNT - 1);
+        model.createTowers(towersCount);
+        model.fillTower(disksCount, towersCount - 1);
         
         return model;
     }
     
-    private void createTowers() {
-        towers = new ArrayList<>(TOWERS_COUNT);
-        for (int i = 0; i < TOWERS_COUNT; i++) {
+    private void createTowers(int towersCount) {
+        towers = new ArrayList<>(towersCount);
+        for (int i = 0; i < towersCount; i++) {
             towers.add(new Tower());
         }
     }
@@ -49,7 +48,7 @@ public class StateModel implements Serializable {
         }
     }
     
-    public void exchangeDisk(int indexFrom, int indexTo) {
+    /*public void exchangeDisk(int indexFrom, int indexTo) {
         Tower towerFrom = towers.get(indexFrom);
         Tower towerTo = towers.get(indexTo);
         
@@ -58,7 +57,7 @@ public class StateModel implements Serializable {
             Disk disk = towerFrom.deleteDisk();
             towerTo.addDisk(disk);
         }
-    }
+    }*/
     
     public List<Tower> getTowers() {
         return towers;

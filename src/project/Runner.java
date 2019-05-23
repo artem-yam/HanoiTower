@@ -1,37 +1,42 @@
 package project;
 
-import project.action.DiskMove;
+import project.action.Action;
 import project.state.StateModel;
-import project.state.checker.CubeStateChecker;
+import project.state.checker.HanoiStateChecker;
 import project.state.checker.StateChecker;
-import project.state.generator.CubeStatesGenerator;
 import project.state.generator.StatesGenerator;
 import project.state.searcher.SearchEngine;
+import project.state.searcher.SearchInDepth;
 import project.state.searcher.SearchInWidth;
 
 public class Runner {
     
     public static void main(String[] args) {
-        int diskNumber = 8;
+        int towersCount = 3;
+        int disksCount = 8;
         
-        StateChecker checker = new CubeStateChecker(new StateModel(diskNumber));
-        StatesGenerator generator = new CubeStatesGenerator();
+        StateChecker checker = new HanoiStateChecker(
+            new StateModel(towersCount, disksCount));
+        StatesGenerator generator = new StatesGenerator();
         
-        StateModel model = new StateModel(diskNumber);
+        StateModel model = new StateModel(towersCount, disksCount);
         model.getCurrentSituation();
         //model.exchangeDisk(0, 1);
         //model.getCurrentSituation();
         
         System.out.println(checker.checkGoal(model));
-        model = generator.getNewState(model, DiskMove.LEFT_TO_MID);
-        model = generator.getNewState(model, DiskMove.LEFT_TO_RIGHT);
+        model = generator.getNewState(model, new Action(0, 1));
+        model = generator.getNewState(model, new Action(0, 2));
         model.getCurrentSituation();
         
-        Cuber cuber = new Cuber(checker, generator);
+        Solver cuber = new Solver(checker, generator);
         SearchEngine widthSearcher = new SearchInWidth();
+        SearchEngine depthSearcher = new SearchInDepth();
         
         System.out.println(cuber.canReachGoal(widthSearcher, model, 2));
         System.out.println(widthSearcher.getSearchTree().size());
+        System.out.println(cuber.canReachGoal(depthSearcher, model, 2));
+        System.out.println(depthSearcher.getSearchTree().size());
     }
     
 }

@@ -16,7 +16,7 @@ public class Tower implements Serializable {
         //rod.add(disk);
     }
     
-    public Disk deleteDisk() {
+    /*public Disk deleteDisk() {
         int currentDisk = rod.size() - 1;
         Disk disk = new Disk(rod.get(currentDisk).getWeight());
         rod.remove(currentDisk);
@@ -27,7 +27,7 @@ public class Tower implements Serializable {
         int indexLastDisk = rod.size() - 1;
         Disk disk = rod.get(indexLastDisk);
         return disk.getWeight();
-    }
+    }*/
     
     public boolean isRodEmpty() {
         if (rod.isEmpty()) {
@@ -38,10 +38,6 @@ public class Tower implements Serializable {
     
     public Stack<Disk> getRod() {
         return rod;
-    }
-    
-    public void setRod(Stack<Disk> rod) {
-        this.rod = rod;
     }
     
     @Override
